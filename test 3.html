@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <title>Phish Graph Data</title>
+</head>
+<body>
+
+    <h1> Phish Data</h1>
+
+
+<script> 
+
+const proxy = "https://cors-anywhere.herokuapp.com/"
+const  api = `${proxy}https://api.phish.net/v3/shows/query?apikey=ABE5ADA76BCDC086BFB4`
+
+const thelist = document.createElement("ul")
+	 	document.querySelector("body").appendChild(thelist)
+        fetch(api).then(resp => resp.json()).then(data => {
+            for (let i = 0; i < data.response.data.length; i++) {
+            const element = data.response.data[i];
+      
+	 		// console.log(data.response.data[i].location);
+	 		const list = document.createElement("li")
+	 		list.innerHTML = data.response.data[i].location
+	 		thelist.appendChild(list)
+	 		if (data.response.data[i].location == "New York, NY, USA"){
+				list.classList.add("lat")
+	 		} 
+	 		else if (data.response.data[i].billed_as == "Phish")
+	 			list.style.color = "pink";
+
+	 		else {
+				list.classList.add("long")
+
+	 		}
+        }
+
+
+    
+})
+
+</script>
+
+</body>
+</html>
